@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>چرخه‌های میلانکوویچ</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eeeeee;--card:#fff;--tx:rgba(0,0,0,.87);--mu:rgba(0,0,0,.54);--ln:rgba(0,0,0,.12);--ab:#3f51b5;--ac:#3f51b5;--fab:#ff4081;--z1:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);--z3:0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12),0 3px 5px -1px rgba(0,0,0,.2);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#303030;--card:#424242;--tx:#fff;--mu:rgba(255,255,255,.7);--ln:rgba(255,255,255,.12);--ab:#212121;--ac:#8c9eff}}
+:root[data-theme="dark"]{--bg:#303030;--card:#424242;--tx:#fff;--mu:rgba(255,255,255,.7);--ln:rgba(255,255,255,.12);--ab:#212121;--ac:#8c9eff}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 14px/1.9 Vazirmatn,Tahoma,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--ab);z-index:10}
+.ab{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--ab);color:#fff;box-shadow:var(--z3);padding:8px 16px 0}
+.ab h1{font:500 20px/1.6 Vazirmatn,Tahoma,sans-serif;margin:0}
+#tabs{display:flex;overflow-x:auto;gap:4px;margin-top:4px}
+#tabs button{flex:1;min-width:120px;background:none;border:0;border-bottom:2px solid transparent;color:rgba(255,255,255,.7);font:500 14px Vazirmatn,Tahoma;padding:10px 8px;cursor:pointer;border-radius:0}
+#tabs button.on{color:#fff;border-bottom-color:var(--fab)}
+main{max-width:1200px;margin:0 auto;padding:12px}
+.g{display:grid;grid-template-columns:1.5fr 1fr;gap:12px}
+@media(max-width:860px){.g{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:2px;box-shadow:var(--z1);padding:16px;margin-bottom:12px}
+.card h2{font:500 16px/1.6 Vazirmatn,Tahoma;margin:0 0 8px}
+#cv{width:100%;height:min(60vh,520px);min-height:320px;display:block;background:#050a18;touch-action:none;cursor:grab}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.mu{color:var(--mu);font-size:12px}
+.btn{font:500 14px Vazirmatn,Tahoma;color:var(--ac);background:none;border:0;padding:6px 12px;cursor:pointer;border-radius:2px}
+.btn:hover{background:var(--ln)}
+select{font:inherit;color:var(--tx);background:var(--card);border:0;border-bottom:1px solid var(--mu);padding:2px 4px}
+input[type=range]{flex:1;min-width:150px;-webkit-appearance:none;appearance:none;height:24px;background:transparent}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--mu)}
+input[type=range]::-moz-range-track{height:2px;background:var(--mu)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--ac);margin-top:-6px}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--ac)}
+input[type=checkbox]{accent-color:var(--ac);width:16px;height:16px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--fab)}
+.nums{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin-top:10px;border-top:1px solid var(--ln);padding-top:8px}
+.nums b{color:var(--ac);font-weight:500}
+.ch{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:860px){.ch{grid-template-columns:1fr}}
+.ch canvas{width:100%;height:150px;display:block;cursor:ew-resize}
+table{width:100%;border-collapse:collapse}td,th{padding:4px 8px;text-align:right;border-bottom:1px solid var(--ln)}th{color:var(--mu);font-weight:500}
+.tw{overflow-x:auto}
+.fab{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;background:var(--fab);color:#fff;font-size:22px;box-shadow:var(--z3);cursor:pointer;z-index:8}
+</style></head><body>
+<header class="ab"><h1>چرخه‌های میلانکوویچ؛ منظومه‌ی شمسی و آب‌وهوای زمین</h1><nav id="tabs"></nav></header>
+<main><div class="g"><section class="card"><canvas id="cv"></canvas>
+<div class="row"><label for="ts">زمان (هزار سال؛ منفی = گذشته)</label><b id="tv"></b></div>
+<div class="row"><input id="ts" type="range" min="-1000" max="500" step="1" value="0"><button class="btn" id="td">امروز</button></div>
+<div class="row"><label><input type="checkbox" id="fc" checked> بردار نیروها</label><label>سرعت سال <select id="sp"><option value=".06">آهسته</option><option value=".15" selected>متوسط</option><option value=".5">سریع</option></select></label></div>
+<div class="row"><label for="ex">اغراق شکل مدار زمین ×<b id="exv"></b></label><input id="ex" type="range" min="1" max="12" step="1" value="6"></div>
+<div class="row"><label for="ki">اغراق ناهم‌صفحگی در نمای منظومه ×<b id="kiv"></b></label><input id="ki" type="range" min="1" max="10" step="1" value="3"></div></section>
+<section class="card"><h2 id="mh"></h2><div id="mp"></div><div class="nums" id="nm"></div></section></div>
+<section class="card"><div class="ch" id="ch"></div></section>
+<section class="card"><h2>مدار هشت سیاره در زمان انتخاب‌شده</h2><div class="tw" id="tb"></div><p class="mu">خروج از مرکز e و میل I نسبت به دایرة‌البروج J2000؛ با لغزنده‌ی زمان همه تغییر می‌کنند.</p></section>
+<section class="card"><h2>این‌ها چطور حساب می‌شوند؟</h2><p class="mu">ورودی فقط جرم و عناصر مداری J2000 هشت سیاره است (a، e، I، Ω، ϖ، L). در بارگذاری، ضرایب لاپلاس و ماتریس‌های A و B از نظریه‌ی سکولار لاپلاس–لاگرانژ ساخته می‌شود و معادلات خروج از مرکز و میل هر هشت سیاره (۳۲ متغیر) با RK4 با گام ۱۰۰ سال از ۱ میلیون سال پیش تا ۵۰۰ هزار سال آینده حل می‌شوند. محور زمین (بردار اسپین) هم با گشتاور خورشید و ماه روی برآمدگی استوایی و صفحه‌ی مدار متحرک زمین حل می‌شود. ثابت تقدیم از مقدار مشاهده‌شده‌ی ۵۰٫۲۹ ثانیه‌ی قوس در سال (سهم خورشید ≈۳۱٫۶٪ و ماه ≈۶۸٫۴٪) گرفته شده، نه از ضریب برآمدگی. e، ε، ϖ و شاخص تقدیم مستقیم از بردار حالت استخراج می‌شوند و تابش تابستان با فرمول میلانکوویچ محاسبه می‌شود. محدودیت‌ها: نظریه‌ی مرتبه‌ی اول است و بیش از چند میلیون سال و برای آشوب مدار زمین دقیق نیست؛ نسبیت، کشند و اثر ماه به‌صورت میانگین لحاظ شده‌اند؛ موقعیت لحظه‌ای سیاره‌ها روی مدار (فاز) فقط نمایشی است و فقط شکل و جهت مدارها به زمان بستگی دارند.</p></section></main>
+<button class="fab" id="fab" aria-label="پخش زمان">▶</button>
+<script src="./three.min.js.js"></script>
+<script>
+const $=i=>document.getElementById(i),D=Math.PI/180,TP=2*Math.PI;
+const fa=(n,d=0)=>n.toLocaleString('fa-IR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const cl=(v,a,b)=>Math.max(a,Math.min(b,v)),dt=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],cr=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+/* n,a,e,T,L,varpi,I,Omega,m,color,size */
+const PL=[['عطارد',.38710,.20563,.24085,252.251,77.456,7.005,48.331,1.6601e-7,0xb0b0b0,.22],['زهره',.72333,.00677,.61520,181.980,131.533,3.395,76.680,2.4478e-6,0xe6c98a,.38],['زمین',1,.01671,1,100.464,102.937,0,0,3.04e-6,0x3da5e0,.4],['مریخ',1.52368,.09340,1.88085,355.453,336.041,1.850,49.558,3.227e-7,0xd2623c,.3],['مشتری',5.2026,.04849,11.862,34.404,14.753,1.303,100.464,9.5479e-4,0xd9b38c,1.1],['زحل',9.5549,.05551,29.457,49.944,92.432,2.489,113.665,2.8588e-4,0xe3d3a0,.95],['اورانوس',19.2184,.04630,84.01,313.232,170.964,.773,74.006,4.366e-5,0x8fd6e0,.65],['نپتون',30.1104,.00899,164.79,304.880,44.971,1.770,131.784,5.151e-5,0x4a68d8,.62]].map(o=>({n:o[0],a:o[1],e:o[2],T:o[3],L:o[4],w:o[5],I:o[6],O:o[7],m:o[8],c:o[9],s:o[10]}));
+function kep(M,e){M=((M%TP)+TP)%TP;let E=M;for(let i=0;i<9;i++)E-=(E-e*Math.sin(E)-M)/(1-e*Math.cos(E));return E}
+function posE(a,e,I,O,w,E){const x=a*(Math.cos(E)-e),y=a*Math.sqrt(1-e*e)*Math.sin(E),om=w-O,co=Math.cos(om),so=Math.sin(om),cO=Math.cos(O),sO=Math.sin(O),cI=Math.cos(I),sI=Math.sin(I);return[x*(cO*co-sO*so*cI)-y*(cO*so+sO*co*cI),x*(sO*co+cO*so*cI)-y*(sO*so-cO*co*cI),(x*so+y*co)*sI]}
+/* ===== نظریه‌ی سکولار ===== */
+const T0=1000,T1=500,N=T0+T1+1,A=[],B=[];
+(function(){const n=PL.map(p=>TP/Math.pow(p.a,1.5)),K=720;const lap=(al,s)=>{let r=0;for(let i=0;i<K;i++){const f=(i+.5)/K*TP;r+=Math.cos(s*f)/Math.pow(1-2*al*Math.cos(f)+al*al,1.5)}return r*TP/K/Math.PI};
+for(let j=0;j<8;j++){A.push(new Float64Array(8));B.push(new Float64Array(8))}
+for(let j=0;j<8;j++)for(let l=0;l<8;l++){if(j==l)continue;const a1=PL[j].a,a2=PL[l].a,al=Math.min(a1,a2)/Math.max(a1,a2),c=n[j]/4*PL[l].m*al*(a2>a1?al:1),b1=lap(al,1),b2=lap(al,2);A[j][j]+=c*b1;A[j][l]=-c*b2;B[j][j]-=c*b1;B[j][l]=c*b1}})();
+const KP0=2.4382e-4/Math.cos(23.4393*D),E0=.01671*.01671;
+function dY(y){const d=new Float64Array(35);for(let j=0;j<8;j++){let a=0,b=0,c=0,e=0;for(let l=0;l<8;l++){a+=A[j][l]*y[8+l];b+=A[j][l]*y[l];c+=B[j][l]*y[24+l];e+=B[j][l]*y[16+l]}d[j]=-a;d[8+j]=b;d[16+j]=c;d[24+j]=-e}
+const p=y[18],q=y[26],n=[p,-q,Math.sqrt(1-p*p-q*q)],s=[y[32],y[33],y[34]],ee=y[2]*y[2]+y[10]*y[10],k=KP0*(.316*Math.pow((1-ee)/(1-E0),-1.5)+.684)*dt(n,s),w=cr(s,n);d[32]=k*w[0];d[33]=k*w[1];d[34]=k*w[2];return d}
+function rk4(y,h){const ad=(a,b,f)=>{const o=new Float64Array(35);for(let i=0;i<35;i++)o[i]=a[i]+f*b[i];return o};const k1=dY(y),k2=dY(ad(y,k1,h/2)),k3=dY(ad(y,k2,h/2)),k4=dY(ad(y,k3,h)),o=new Float64Array(35);for(let i=0;i<35;i++)o[i]=y[i]+h/6*(k1[i]+2*k2[i]+2*k3[i]+k4[i]);const l=Math.hypot(o[32],o[33],o[34]);o[32]/=l;o[33]/=l;o[34]/=l;return o}
+const Y=new Float64Array(N*35),y0=new Float64Array(35);
+PL.forEach((p,j)=>{const e=p.e,w=p.w*D,I=p.I*D,O=p.O*D;y0[j]=e*Math.cos(w);y0[8+j]=e*Math.sin(w);y0[16+j]=Math.sin(I)*Math.sin(O);y0[24+j]=Math.sin(I)*Math.cos(O)});
+y0[33]=Math.sin(23.4393*D);y0[34]=Math.cos(23.4393*D);
+(function(){let y=y0.slice();Y.set(y,T0*35);for(let i=T0+1;i<N;i++){for(let k=0;k<10;k++)y=rk4(y,100);Y.set(y,i*35)}y=y0.slice();for(let i=T0-1;i>=0;i--){for(let k=0;k<10;k++)y=rk4(y,-100);Y.set(y,i*35)}})();
+function st(t){const f=cl(t+T0,0,N-1),i=Math.min(N-2,Math.floor(f)),u=f-i,o=new Float64Array(35);for(let k=0;k<35;k++)o[k]=Y[i*35+k]*(1-u)+Y[(i+1)*35+k]*u;return o}
+function dv(y){const e=Math.hypot(y[2],y[10]),pw=Math.atan2(y[10],y[2]),p=y[18],q=y[26],sI=Math.hypot(p,q),cI=Math.sqrt(1-sI*sI),Om=Math.atan2(p,q),om=pw-Om,n=[p,-q,cI],sl=Math.hypot(y[32],y[33],y[34]),s=[y[32]/sl,y[33]/sl,y[34]/sl],eps=Math.acos(cl(dt(n,s),-1,1)),g=cr(s,n),gl=Math.hypot(g[0],g[1],g[2]),ga=g.map(x=>x/gl),P=[Math.cos(Om)*Math.cos(om)-Math.sin(Om)*Math.sin(om)*cI,Math.sin(Om)*Math.cos(om)+Math.cos(Om)*Math.sin(om)*cI,Math.sin(om)*sI],vp=Math.atan2(dt(n,cr(ga,P)),dt(ga,P))+Math.PI,PX=e*Math.sin(vp),f=(1+PX)/(1-e*e),ph=65*D,h=Math.acos(cl(-Math.tan(ph)*Math.tan(eps),-1,1)),Q=1361/Math.PI*f*f*(h*Math.sin(ph)*Math.sin(eps)+Math.cos(ph)*Math.cos(eps)*Math.sin(h));return{e,eps,PX,vp,I:Math.asin(sI),Om,pw,n,s,ga,P,Q}}
+const DV=new Float64Array(N*4);for(let i=0;i<N;i++){const d=dv(Y.subarray(i*35,i*35+35));DV.set([d.e,d.eps/D,d.PX,d.Q],i*4)}
+let EMIN=1,EMAX=0;for(let i=0;i<N;i++){EMIN=Math.min(EMIN,DV[i*4]);EMAX=Math.max(EMAX,DV[i*4])}
+const MN=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'],SE=['بهار','تابستان','پاییز','زمستان'];
+const shi=l=>{l=((l%360)+360)%360;return'حدود '+fa(Math.min(31,Math.round(1+(l%30)/30*30)))+' '+MN[Math.floor(l/30)]};
+const MODES=[
+['منظومه شمسی','هشت سیاره روی مدارهای واقعی‌شان؛ مدارها هم‌صفحه نیستند (عطارد ۷°، زهره ۳٫۴° و …). با لغزنده‌ی زمان، شکل و کجی همه‌ی مدارها از نظریه‌ی سکولار تغییر می‌کند. پیکان‌ها گرانش هر جرم بر زمین‌اند؛ پیکان سیاره‌ها ۲۰٬۰۰۰ برابر بزرگ‌نمایی شده، چون نیروی مشتری و زهره حدود ۳۰ تا ۵۰ ppm نیروی خورشید است. این نیروهای کوچک در ده‌ها هزار سال روی هم جمع می‌شوند و شکل و کجی مدار را عوض می‌کنند.'],
+['خروج از مرکز','شکل مدار زمین. کشش مشتری، زهره و زحل کشیدگی مدار را در دوره‌های ≈۱۰۰ و ۴۰۵ هزار سال بین حدود ۰ تا ۰٫۰۶ تغییر می‌دهد. کشیدگی بیشتر یعنی تفاوت نور حضیض (نزدیک‌ترین نقطه) و اوج (دورترین) بیشتر. شکل مدار برای دیده شدن اغراق شده؛ بیضی‌های خط‌چین کمینه و بیشینه‌ی این بازه‌اند و پیکان‌ها گرانش خورشید و سیارات‌اند.'],
+['تمایل محوری','زاویه‌ی محور چرخش با عمود بر صفحه‌ی مدار (خط‌چین). محور به‌خاطر برآمدگی استوایی می‌چرخد و کشش سیاره‌ها خود صفحه‌ی مدار زمین را کج و می‌چرخاند؛ تغییر نسبی این دو، زاویه را در ≈۴۱ هزار سال بین حدود ۲۲ تا ۲۴٫۵ درجه تغییر می‌دهد. پیکان‌های زرد: کشش خورشید روی نیمه‌ی نزدیک و دور برآمدگی استوایی.'],
+['تقدیم محوری','محور زمین مثل فرفره‌ی کج در ≈۲۵٫۷ هزار سال دور مخروط می‌چرخد. خورشید و ماه نیمه‌ی نزدیک برآمدگی را قوی‌تر می‌کشند؛ این گشتاور (پیکان زرد بالای محور) محور را در جهت خودش می‌برد، نه اینکه بخواباند. هم‌زمان بیضی هم می‌چرخد؛ ترکیب این دو چرخه‌ی ≈۱۹ تا ۲۳ هزار ساله‌ی نزدیک‌بودن تابستان به خورشید است.']];
+let mode=0,t=0,Yr=26.88,auto=false,fc=true,kx=6,kI=3,az=.6,pol=1.05,dist=48,tdist=48,focus=false,ep3=null;
+const tabs=$('tabs');MODES.forEach((m,i)=>{const b=document.createElement('button');b.textContent=(i+1)+'. '+m[0];b.onclick=()=>setMode(i);tabs.appendChild(b)});
+function setMode(i){mode=i;[...tabs.children].forEach((b,j)=>b.classList.toggle('on',j==i));$('mh').textContent=MODES[i][0];$('mp').textContent=MODES[i][1];tdist=[48,30,7,7][i];pol=[1.05,.95,1.25,1.25][i];focus=i>1;vis()}
+let R,scn,cam,sol,ear,eg,gh1,gh2,ell,pk=[],sk=[],axL,bul,eqr,nrm,ring,cone,sA={},eA={},tq,nb,fb,gl,glb,grid;
+const V=(x,y,z)=>new THREE.Vector3(x,y,z),mp=a=>V(a[0],a[2],-a[1]);
+const arr=c=>new THREE.ArrowHelper(V(1,0,0),V(),1,c,.5,.3);
+function lab(s,col,w=3){const c=document.createElement('canvas');c.width=256;c.height=64;const x=c.getContext('2d');x.font='700 32px Vazirmatn,Tahoma,sans-serif';x.fillStyle=col;x.textAlign='center';x.fillText(s,128,44);const p=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthTest:false,transparent:true}));p.scale.set(w,w/4,1);return p}
+function line(c,n,dash){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(new Float32Array(n*3),3));return new THREE.Line(g,dash?new THREE.LineDashedMaterial({color:c,dashSize:.4,gapSize:.3}):new THREE.LineBasicMaterial({color:c,transparent:true,opacity:.85}))}
+function init(){
+R=new THREE.WebGLRenderer({canvas:$('cv'),antialias:true});R.setPixelRatio(Math.min(2,devicePixelRatio));scn=new THREE.Scene();cam=new THREE.PerspectiveCamera(45,1,.1,600);
+scn.add(new THREE.AmbientLight(0xffffff,.5));scn.add(new THREE.PointLight(0xffffff,1.6));
+const st2=new Float32Array(900);for(let i=0;i<900;i++)st2[i]=(Math.random()-.5)*400;const sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.BufferAttribute(st2,3));scn.add(new THREE.Points(sg,new THREE.PointsMaterial({color:0x9fb0d8,size:.5})));
+sol=new THREE.Group();scn.add(sol);sol.add(new THREE.Mesh(new THREE.SphereGeometry(1.4,24,16),new THREE.MeshBasicMaterial({color:0xffc233})));
+grid=new THREE.GridHelper(80,16,0x33447a,0x1b2650);sol.add(grid);
+PL.forEach(p=>{p.mesh=new THREE.Mesh(new THREE.SphereGeometry(p.s*.6,16,12),new THREE.MeshBasicMaterial({color:p.c}));sol.add(p.mesh);p.ln=line(0x5d70b0,101);sol.add(p.ln);p.lb=lab(p.n,'#cfd8f0',3.2);sol.add(p.lb)});
+['sun','ven','mar','jup','sat'].forEach((k,i)=>{sA[k]=arr([0xffc233,0xe6a0c8,0xd2623c,0xd9b38c,0xe3d3a0][i]);sol.add(sA[k])});
+ear=new THREE.Group();scn.add(ear);ear.add(new THREE.Mesh(new THREE.SphereGeometry(.9,24,16),new THREE.MeshBasicMaterial({color:0xffc233})));
+ell=line(0x6cc3dc,181);gh1=line(0x8996c0,181,1);gh2=line(0x8996c0,181,1);ear.add(ell,gh1,gh2);
+[['حضیض','#ffc233'],['اوج','#8aa0d8']].forEach(a=>{const s=lab(a[0],a[1],2.4);pk.push(s);ear.add(s)});
+SE.forEach(n=>{const s=lab('آغاز '+n,'#a8e0c0',3.2);sk.push(s);ear.add(s)});
+gl=line(0xa8e0c0,2,1);ear.add(gl);glb=lab('جهت اعتدال بهاری','#a8e0c0',4);ear.add(glb);
+eg=new THREE.Group();ear.add(eg);bul=new THREE.Mesh(new THREE.SphereGeometry(.65,28,20),new THREE.MeshLambertMaterial({color:0x2f8fd0}));bul.scale.set(1.08,.9,1.08);eg.add(bul);
+eqr=new THREE.Mesh(new THREE.TorusGeometry(.72,.015,6,48),new THREE.MeshBasicMaterial({color:0xffffff}));eqr.rotation.x=Math.PI/2;eg.add(eqr);
+axL=line(0xff6b6b,2);const ap=axL.geometry.attributes.position;ap.setXYZ(0,0,-1.5,0);ap.setXYZ(1,0,1.5,0);eg.add(axL);
+const tip=new THREE.Mesh(new THREE.SphereGeometry(.09,8,8),new THREE.MeshBasicMaterial({color:0xff6b6b}));tip.position.y=1.5;eg.add(tip);
+nrm=line(0xaab4d0,2,1);ear.add(nrm);ring=new THREE.Mesh(new THREE.RingGeometry(1.5,1.55,48),new THREE.MeshBasicMaterial({color:0x6cc3dc,side:2,transparent:true,opacity:.7}));ear.add(ring);
+cone=line(0xff6b6b,65,1);ear.add(cone);
+['sun','ven','jup','sat'].forEach((k,i)=>{eA[k]=arr([0xffc233,0xe6a0c8,0xd9b38c,0xe3d3a0][i]);ear.add(eA[k])});
+tq=arr(0xffe14d);nb=arr(0xffc233);fb=arr(0xffc233);ear.add(tq,nb,fb);
+onR();
+setMode(0);
+requestAnimationFrame(loop);
+// یک فریم صبر کن تا cur مقدار بگیرد
+requestAnimationFrame(() => onT());}
+function ellL(l,e,P,Q,a){const q=l.geometry.attributes.position;for(let i=0;i<=180;i++){const E=i/180*TP,x=a*(Math.cos(E)-e),y=a*Math.sqrt(1-e*e)*Math.sin(E);q.setXYZ(i,P.x*x+Q.x*y,P.y*x+Q.y*y,P.z*x+Q.z*y)}q.needsUpdate=true;if(l.material.isLineDashedMaterial)l.computeLineDistances()}
+function vis(){sol.visible=mode==0;ear.visible=mode>0;gh1.visible=gh2.visible=mode==1;pk.forEach(s=>s.visible=mode<3);sk.forEach(s=>s.visible=mode==1);nrm.visible=ring.visible=mode==2;cone.visible=mode==3;[tq,nb,fb].forEach(a=>a.visible=mode>=2)}
+function setA(a,from,dir,len){if(!(len>=.12)){a.visible=false;return}a.visible=true;a.position.copy(from);a.setDirection(dir.clone().normalize());a.setLength(len,Math.min(.6,len*.35),.3)}
+const MC=3,MG=20000;let fr=0,last=0,cur={};
+function loop(ts){requestAnimationFrame(loop);const dtm=Math.min(.05,(ts-last)/1000);last=ts;
+Yr+=dtm*parseFloat($('sp').value)*8;if(auto){t+=dtm*8;if(t>T1)t=-T0;$('ts').value=t;onT()}
+const y=st(t),d=dv(y);cur=d;
+const rp=PL.map((p,j)=>{const e=Math.hypot(y[j],y[8+j]),pw=Math.atan2(y[8+j],y[j]),pq=y[16+j],qq=y[24+j],I=Math.asin(Math.hypot(pq,qq)),O=Math.atan2(pq,qq),M=(p.L+360*Yr/p.T)*D-pw,v=posE(p.a,e,I,O,pw,kep(M,e));return{e,pw,I,O,M,v,r:Math.hypot(v[0],v[1],v[2])}});
+const re=rp[2],vE=re.v;
+const fo=(m)=>{const j=PL.findIndex(p=>p.n==m),q=rp[j].v,w=[q[0]-vE[0],q[1]-vE[1],q[2]-vE[2]],dd=Math.hypot(w[0],w[1],w[2]);return{w:mp(w),f:PL[j].m/(dd*dd)}};
+if(mode==0){const sq=v=>{const r=Math.hypot(v[0],v[1],v[2]),f=6*Math.sqrt(r)/r;return V(v[0]*f,v[2]*f*kI,-v[1]*f)};
+PL.forEach((p,j)=>{const q=rp[j];p.mesh.position.copy(sq(q.v));p.lb.position.copy(p.mesh.position).add(V(0,1.6,0));const a=p.ln.geometry.attributes.position;for(let i=0;i<=100;i++){const w=sq(posE(p.a,q.e,q.I,q.O,q.pw,i/100*TP));a.setXYZ(i,w.x,w.y,w.z)}a.needsUpdate=true});
+const E=PL[2].mesh.position;setA(sA.sun,E,E.clone().negate(),fc?MC/(re.r*re.r):0);[['ven','زهره'],['mar','مریخ'],['jup','مشتری'],['sat','زحل']].forEach(a=>{const o=fo(a[1]);setA(sA[a[0]],E,o.w,fc?Math.min(10,MC*o.f*MG*re.r*re.r/(re.r*re.r)):0)})}
+else{const ed=Math.min(.85,d.e*kx),P3=mp(d.P),n3=mp(d.n),s3=mp(d.s),g3=mp(d.ga),Q3=n3.clone().cross(P3),ct=n3.clone().cross(g3);
+ellL(ell,ed,P3,Q3,10);ellL(gh1,Math.min(.85,EMIN*kx),P3,Q3,10);ellL(gh2,Math.min(.85,EMAX*kx),P3,Q3,10);
+const E=kep(re.M,ed),b=10*Math.sqrt(1-ed*ed),Pe=P3.clone().multiplyScalar(10*(Math.cos(E)-ed)).add(Q3.clone().multiplyScalar(b*Math.sin(E)));ep3=Pe;
+pk[0].position.copy(P3).multiplyScalar(10*(1-ed)*1.15).add(V(0,.8,0));pk[1].position.copy(P3).multiplyScalar(-10*(1+ed)*1.1).add(V(0,.8,0));
+[0,90,180,270].forEach((l,i)=>{const su=g3.clone().multiplyScalar(Math.cos(l*D)).add(ct.clone().multiplyScalar(Math.sin(l*D))),u=su.negate(),nu=Math.atan2(n3.dot(P3.clone().cross(u)),P3.dot(u)),r=10*(1-ed*ed)/(1+ed*Math.cos(nu));sk[i].position.copy(u).multiplyScalar(r).add(V(0,1.2,0))});
+const gp=gl.geometry.attributes.position;gp.setXYZ(1,g3.x*13,g3.y*13,g3.z*13);gp.needsUpdate=true;gl.computeLineDistances();glb.position.copy(g3).multiplyScalar(14.5);
+eg.position.copy(Pe);eg.quaternion.setFromUnitVectors(V(0,1,0),s3);
+const np=nrm.geometry.attributes.position;np.setXYZ(0,Pe.x,Pe.y,Pe.z);const nt=Pe.clone().add(n3.clone().multiplyScalar(2));np.setXYZ(1,nt.x,nt.y,nt.z);np.needsUpdate=true;nrm.computeLineDistances();
+ring.position.copy(Pe);ring.quaternion.setFromUnitVectors(V(0,0,1),n3);
+const u1=V(1,0,0).sub(n3.clone().multiplyScalar(n3.x)).normalize(),u2=n3.clone().cross(u1),ca=cone.geometry.attributes.position,se=Math.sin(d.eps),ce=Math.cos(d.eps);
+for(let i=0;i<=64;i++){const bb=i/64*TP,v=n3.clone().multiplyScalar(ce).add(u1.clone().multiplyScalar(se*Math.cos(bb))).add(u2.clone().multiplyScalar(se*Math.sin(bb))).multiplyScalar(1.6).add(Pe);ca.setXYZ(i,v.x,v.y,v.z)}ca.needsUpdate=true;cone.computeLineDistances();
+const sh=Pe.clone().negate().normalize(),c=s3.dot(sh),tau=s3.clone().cross(sh).multiplyScalar(-c),e1=sh.clone().sub(s3.clone().multiplyScalar(c));
+if(e1.length()>.02){e1.normalize();setA(nb,Pe.clone().add(e1.clone().multiplyScalar(.9)),sh,fc?1.9:0);setA(fb,Pe.clone().sub(e1.clone().multiplyScalar(.9)),sh,fc?1.2:0)}else{nb.visible=fb.visible=false}
+setA(tq,Pe.clone().add(s3.clone().multiplyScalar(1.6)),tau,fc?Math.min(2.6,.001+6*tau.length()):0);
+if(mode==1){setA(eA.sun,Pe,Pe.clone().negate(),fc?MC/(re.r*re.r):0);[['ven','زهره'],['jup','مشتری'],['sat','زحل']].forEach(a=>{const o=fo(a[1]);setA(eA[a[0]],Pe,o.w,fc?Math.min(10,MC*o.f*MG):0)})}
+const su=Pe.clone().negate().normalize();cur.lam=((Math.atan2(n3.dot(g3.clone().cross(su)),g3.dot(su))/D)+360)%360}
+const tp=focus&&ep3?ep3:V(0,0,0);dist+=(tdist-dist)*.08;
+cam.position.set(tp.x+dist*Math.sin(pol)*Math.cos(az),tp.y+dist*Math.cos(pol),tp.z+dist*Math.sin(pol)*Math.sin(az));cam.lookAt(tp);
+if(++fr%12==0)nums(rp);R.render(scn,cam)}
+function nums(rp){
+  const d = cur;
+  if(!d || d.e === undefined) return;          // ← این خط را اضافه کن
+  const e = d.e, vd = ((d.vp/D)%360+360)%360;
+  let h = `<span>خروج از مرکز e</span><b>${fa(e,4)}</b>
+<span>اختلاف نور حضیض و اوج</span><b>${fa((Math.pow((1+e)/(1-e),2)-1)*100,1)}٪</b>
+<span>تمایل محور ε</span><b>${fa(d.eps/D,2)}°</b>
+<span>میل مدار زمین (به J2000)</span><b>${fa(d.I/D,2)}°</b>
+<span>طول حضیض ϖ (از اعتدال)</span><b>${fa(vd,0)}°</b>
+<span>حضیض در تقویم</span><b>${shi(vd)}</b>
+<span>شاخص تقدیم e·sinϖ</span><b>${fa(d.PX,3)}</b>
+<span>نور تابستان ۶۵°N</span><b>${fa(d.Q,0)} W/m²</b>`;
+  if(mode==1 && rp){
+    const re = rp[2];
+    [['زهره',1],['مشتری',4],['زحل',5]].forEach(a=>{
+      const q = rp[a[1]].v, dd = Math.hypot(q[0]-re.v[0], q[1]-re.v[1], q[2]-re.v[2]);
+      h += `<span>گرانش ${a[0]} نسبت به خورشید</span><b>${fa(PL[a[1]].m/(dd*dd)*re.r*re.r*1e6,0)} ppm</b>`;
+    });
+  }
+  if(mode>0 && d.lam!=null)
+    h += `<span>فصل زمین در این لحظه‌ی نمایش</span><b>${SE[Math.floor(d.lam/90)]} (${shi(d.lam)})</b>`;
+  $('nm').innerHTML = h;
+  const y = st(t);
+  let tb = '<table><tr><th>سیاره</th><th>e</th><th>I</th></tr>';
+  PL.forEach((p,j)=> tb += `<tr><td>${p.n}</td><td>${fa(Math.hypot(y[j],y[8+j]),4)}</td><td>${fa(Math.asin(Math.hypot(y[16+j],y[24+j]))/D,2)}°</td></tr>`);
+  $('tb').innerHTML = tb + '</table>';
+}function onT(){$('tv').textContent=(t<0?'−':t>0?'+':'')+fa(Math.abs(t))+' هزار سال';charts();nums(null)}
+function onR(){const c=$('cv');R.setSize(c.clientWidth,c.clientHeight,false);cam.aspect=c.clientWidth/c.clientHeight;cam.updateProjectionMatrix();charts()}
+const SER=[['خروج از مرکز (شکل مدار)',0,'#f57c00',v=>fa(v,3),'دوره‌ها ≈۱۰۰ و ۴۰۵ هزار سال'],['تمایل محوری (درجه)',1,'#00897b',v=>fa(v,1)+'°','دوره ≈۴۱ هزار سال'],['شاخص تقدیم e·sinϖ',2,'#d81b60',v=>fa(v,3),'دوره ≈۱۹ تا ۲۳ هزار سال؛ مثبت = تابستان شمالی نزدیک به خورشید'],['نور تابستان ۶۵° شمالی (W/m²)',3,'#5c6bc0',v=>fa(v,0),'عاملی که اوج و فرود یخچال‌ها را تنظیم می‌کند']];
+function charts(){const box=$('ch');if(!box.children.length)SER.forEach(s=>{const dv2=document.createElement('div');dv2.innerHTML=`<h2>${s[0]}</h2><canvas></canvas><p class="mu">${s[4]}</p>`;const cv=dv2.querySelector('canvas');const set=ev=>{const r=cv.getBoundingClientRect();t=Math.round(-T0+(1-(ev.clientX-r.left)/r.width)*(T0+T1));t=cl(t,-T0,T1);$('ts').value=t;onT()};cv.onpointerdown=ev=>{cv.setPointerCapture(ev.pointerId);set(ev);cv.onpointermove=set};cv.onpointerup=()=>cv.onpointermove=null;box.appendChild(dv2)});
+const cs=getComputedStyle(document.documentElement),ln=cs.getPropertyValue('--ln'),mu=cs.getPropertyValue('--mu'),tx=cs.getPropertyValue('--tx');
+[...box.querySelectorAll('canvas')].forEach((cv,i)=>{const s=SER[i],W=cv.clientWidth,H=150,dp=devicePixelRatio||1;cv.width=W*dp;cv.height=H*dp;const x=cv.getContext('2d');x.scale(dp,dp);let a=1e9,b=-1e9;for(let k=0;k<N;k++){const q=DV[k*4+s[1]];a=Math.min(a,q);b=Math.max(b,q)}const mn=a,mx=b,pd=(b-a)*.1;a-=pd;b+=pd;
+const X=tt=>W-(tt+T0)/(T0+T1)*W,Yv=q=>H-14-(q-a)/(b-a)*(H-28);x.strokeStyle=ln;x.lineWidth=1;x.font='11px Vazirmatn,Tahoma';x.fillStyle=mu;for(let k=-1000;k<=500;k+=250){x.beginPath();x.moveTo(X(k),0);x.lineTo(X(k),H-14);x.stroke();x.fillText(fa(k),X(k)+2,H-2)}
+x.strokeStyle=s[2];x.lineWidth=2;x.beginPath();for(let k=0;k<N;k++){const px=X(k-T0),py=Yv(DV[k*4+s[1]]);k?x.lineTo(px,py):x.moveTo(px,py)}x.stroke();
+x.fillStyle=mu;x.fillText(s[3](mx),W-4-x.measureText(s[3](mx)).width,12);x.fillText(s[3](mn),W-4-x.measureText(s[3](mn)).width,H-18);
+const f=cl(t+T0,0,N-1),i0=Math.min(N-2,Math.floor(f)),u=f-i0,cv2=DV[i0*4+s[1]]*(1-u)+DV[(i0+1)*4+s[1]]*u;x.strokeStyle=tx;x.beginPath();x.moveTo(X(t),0);x.lineTo(X(t),H-14);x.stroke();x.fillStyle=s[2];x.beginPath();x.arc(X(t),Yv(cv2),4.5,0,TP);x.fill()})}
+$('ts').oninput=e=>{t=+e.target.value;onT()};$('td').onclick=()=>{t=0;$('ts').value=0;onT()};
+const tog=()=>{auto=!auto;$('fab').textContent=auto?'❚❚':'▶'};$('fab').onclick=tog;
+$('fc').onchange=e=>fc=e.target.checked;$('ex').oninput=e=>{kx=+e.target.value;$('exv').textContent=fa(kx)};$('ki').oninput=e=>{kI=+e.target.value;$('kiv').textContent=fa(kI)};$('exv').textContent=fa(kx);$('kiv').textContent=fa(kI);
+const cv0=$('cv');let dr=null;cv0.onpointerdown=e=>{dr=[e.clientX,e.clientY];cv0.setPointerCapture(e.pointerId)};cv0.onpointermove=e=>{if(!dr)return;az-=(e.clientX-dr[0])*.008;pol=cl(pol+(e.clientY-dr[1])*.006,.15,2.9);dr=[e.clientX,e.clientY]};cv0.onpointerup=()=>dr=null;
+cv0.onwheel=e=>{e.preventDefault();tdist=cl(tdist*(1+e.deltaY*.001),3,mode==0?120:mode==1?70:25)};
+addEventListener('resize',onR);
+document.fonts.ready.then(init);
+</script></body></html>
